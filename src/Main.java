@@ -1,43 +1,44 @@
-//Fernanda Morales
-
 import entidades.Paciente;
 import metodos.PacientesCRUD;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        //Instancia del CRUD
+        // Instancia del CRUD
         PacientesCRUD pacientesCRUD = new PacientesCRUD();
 
-        //Crear tres pacientes
-        Paciente p1 = new Paciente("1", "Fernanda", "Morales", "9911223344", "fer@gmail.com",
-        LocalDate.of(1995, 5, 12), 1, "Sin antecedentes médicos.");
-Paciente p2 = new Paciente("2", "Luis", "Pérez", "9876543210", "luis@gmail.com",
-        LocalDate.of(1990, 8, 25), 2, "Alergia a penicilina.");
-Paciente p3 = new Paciente("3", "María", "González", "5555555555", "maria@gmail.com",
-        LocalDate.of(2000, 3, 15), 3, "Hipertensión controlada.");
-        //Agregar pacientes a la lista
+        // Definir la ruta del archivo
+        String rutaArchivo = "D:\\IntelliJ\\Tareas\\proyectoFinal\\baseDatos\\pacientes.dat";
+
+        // Cargar los datos desde el archivo antes de agregar nuevos pacientes
+        pacientesCRUD.cargarDatos(rutaArchivo); // Carga los pacientes ya existentes en el archivo
+
+        // Crear tres pacientes nuevos
+        Paciente p1 = new Paciente("4", "Fernanda", "Hernández", "9911223355", "fer.hdez@gmail.com",
+                LocalDate.of(1995, 5, 12), "Sin antecedentes médicos.");
+        Paciente p2 = new Paciente("5", "Luz", "Pérez", "9876543211", "luz@gmail.com",
+                LocalDate.of(1990, 8, 25), "Alergia a mariscos.");
+
+        // Agregar pacientes a la lista cargada
         pacientesCRUD.agregarPaciente(p1);
         pacientesCRUD.agregarPaciente(p2);
-        pacientesCRUD.agregarPaciente(p3);
 
-        // Guardar la lista de pacientes en un archivo
-        try {
-            FileOutputStream escribir = new FileOutputStream("D:\\IntelliJ\\Tareas\\proyectoFinal\\baseDatos\\pacientes.dat");
-            ObjectOutputStream miStream = new ObjectOutputStream(escribir);
-            miStream.writeObject(pacientesCRUD);
-            miStream.flush();
-            miStream.close();
-            System.out.println("Lista de pacientes guardada en base de datos.");
-        } catch (FileNotFoundException e) {
-            System.out.println("Archivo no encontrado: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Error al guardar: " + e.getMessage());
+        // Guardar la lista de pacientes en el archivo (ahora con los nuevos pacientes y los previos)
+        pacientesCRUD.guardarDatos(rutaArchivo);
+
+        // Crear un nuevo CRUD para simular una nueva ejecución (cargar los datos y mostrar)
+        PacientesCRUD nuevoPacientesCRUD = new PacientesCRUD();
+
+        // Cargar los datos desde el archivo
+        nuevoPacientesCRUD.cargarDatos(rutaArchivo);
+
+        // Mostrar todos los pacientes cargados
+        System.out.println("\nLista de todos los pacientes:");
+        for (Paciente paciente : nuevoPacientesCRUD.getTodosLosPacientes()) {
+            System.out.println("ID: " + paciente.getId() + " | Nombre: " + paciente.getNombre() + " " + paciente.getApellido() +
+                    " | Teléfono: " + paciente.getTelefono() + " | Email: " + paciente.getEmail() +
+                    " | Fecha de Nacimiento: " + paciente.getFechaNacimiento() + " | Historial Médico: " + paciente.getHistorialMedico());
         }
     }
 }

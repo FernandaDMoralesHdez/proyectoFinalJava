@@ -9,9 +9,16 @@ import java.time.LocalDate;
 public class Paciente extends Persona implements Serializable {
     private String historialMedico;
 
-    public Paciente(String id, String nombre, String apellido, String telefono, String email, LocalDate fechaNacimiento, int idPaciente, String historialMedico) {
-        super(id,nombre, apellido, telefono, email, fechaNacimiento);
+    //Constructor con parámetros
+    public Paciente(String id, String nombre, String apellido, String telefono, String email, LocalDate fechaNacimiento, String historialMedico) {
+        super(id, nombre, apellido, telefono, email, fechaNacimiento); // Llama al constructor de la clase Persona
         this.historialMedico = historialMedico;
+    }
+
+    //Constructor vacío
+    public Paciente() {
+        super(); // Llama al constructor vacío de la clase Persona
+        this.historialMedico = ""; // Inicializa el historial médico con una cadena vacía
     }
 
 

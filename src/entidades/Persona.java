@@ -22,7 +22,16 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-   //Metodo para obtener nombre completo
+    //Constructor vacío
+    public Persona() {
+        this.nombre = "";
+        this.apellido = "";
+        this.telefono = "";
+        this.email = "";
+        this.fechaNacimiento = LocalDate.now();
+    }
+
+    //Metodo para obtener nombre completo
     public String getNombreCompleto() {
         return nombre + " " + apellido;
     }
