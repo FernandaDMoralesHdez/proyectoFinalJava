@@ -1,43 +1,40 @@
-//Fernanda Morales
-
-import entidades.Paciente;
 import metodos.PacientesCRUD;
+import entidades.Paciente;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        //Instancia del CRUD
-        PacientesCRUD pacientesCRUD = new PacientesCRUD();
+        // Define la ruta absoluta del archivo
+        String rutaArchivo = "D:\\IntelliJ\\Tareas\\proyectoFinal\\baseDatos\\pacientes.dat";
 
-        //Crear tres pacientes
-        Paciente p1 = new Paciente("1", "Fernanda", "Morales", "9911223344", "fer@gmail.com",
-        LocalDate.of(1995, 5, 12), 1, "Sin antecedentes médicos.");
-Paciente p2 = new Paciente("2", "Luis", "Pérez", "9876543210", "luis@gmail.com",
-        LocalDate.of(1990, 8, 25), 2, "Alergia a penicilina.");
-Paciente p3 = new Paciente("3", "María", "González", "5555555555", "maria@gmail.com",
-        LocalDate.of(2000, 3, 15), 3, "Hipertensión controlada.");
-        //Agregar pacientes a la lista
-        pacientesCRUD.agregarPaciente(p1);
-        pacientesCRUD.agregarPaciente(p2);
-        pacientesCRUD.agregarPaciente(p3);
+        // Instancia del CRUD con la ruta del archivo
+        PacientesCRUD crud = new PacientesCRUD(rutaArchivo);
 
-        // Guardar la lista de pacientes en un archivo
-        try {
-            FileOutputStream escribir = new FileOutputStream("D:\\IntelliJ\\Tareas\\proyectoFinal\\baseDatos\\pacientes.dat");
-            ObjectOutputStream miStream = new ObjectOutputStream(escribir);
-            miStream.writeObject(pacientesCRUD);
-            miStream.flush();
-            miStream.close();
-            System.out.println("Lista de pacientes guardada en base de datos.");
-        } catch (FileNotFoundException e) {
-            System.out.println("Archivo no encontrado: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Error al guardar: " + e.getMessage());
+        // Crear un nuevo paciente
+        Paciente paciente1 = new Paciente("1", "Juan", "Perez", "1234567890", "juan.perez@example.com", LocalDate.of(1990, 5, 15), "Sin historial");
+        crud.agregarPaciente(paciente1);
+
+        // Consultar un paciente
+        Paciente encontrado = crud.getInfoPacientePorID("1");
+        if (encontrado != null) {
+            System.out.println("Paciente encontrado: " + encontrado.getNombre());
+        } else {
+            System.out.println("Paciente no encontrado.");
+        }
+
+        // Actualizar un paciente
+        Paciente datosActualizados = new Paciente("1", "Juan", "Perez", "0987654321", "juan.perez@nuevoemail.com", LocalDate.of(1990, 5, 15), "Historial actualizado");
+        crud.actualizarPaciente("1", datosActualizados);
+
+        // Eliminar un paciente
+        crud.eliminarPaciente("1");
+
+        // Verificar que se eliminó
+        Paciente eliminado = crud.getInfoPacientePorID("1");
+        if (eliminado == null) {
+            System.out.println("Paciente eliminado correctamente.");
         }
     }
 }
+

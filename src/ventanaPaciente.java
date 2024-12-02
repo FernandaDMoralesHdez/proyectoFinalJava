@@ -1,29 +1,46 @@
+import entidades.Paciente;
 import metodos.PacientesCRUD;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 public class ventanaPaciente extends JFrame{
     private JPanel miPanel;
-    private JTextField txtNombre;
-    private JTextField txtApellido;
-    private JTextField txtTel;
-    private JTextField txtEmail;
-    private JTextField txtFecNac;
-    private JButton btnBuscar;
-    private JButton btnAgregar;
-    private JButton btnEditar;
-    private JButton btnEliminar;
+    private JTextField txtIDPaciente;
+    private JTextField txtNombrePaciente;
+    private JTextField txtApellidoPaciente;
+    private JTextField txtTelefonoPaciente;
+    private JTextField txtEmailPaciente;
+    private JTextField txtFecNacPaciente;
+    private JButton btnBuscarPaciente;
+    private JButton btnAgregarPaciente;
+    private JButton btnEditarPaciente;
+    private JButton btnEliminarPaciente;
+    private PacientesCRUD crudPacientes; //Instancia global de CRUD
+
 
     public ventanaPaciente() {
-        btnBuscar.addActionListener(new ActionListener() {
+        crudPacientes = new PacientesCRUD("D:\\IntelliJ\\Tareas\\proyectoFinal\\baseDatos\\pacientes.dat"); //Inicializar el CRUD una sola vez
+
+
+        btnBuscarPaciente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PacientesCRUD crud = new PacientesCRUD(); //Instanciar
-                /*String id = txt
-                crud.getInfoPacientePorID(id); //Invocar metodo para buscar paciente */
+                String id = txtIDPaciente.getText();
+                Paciente paciente = crudPacientes.getInfoPacientePorID(id);
 
+                if (paciente != null) {
+                    txtNombrePaciente.setText(paciente.getNombre());
+                    txtApellidoPaciente.setText(paciente.getApellido());
+                    txtTelefonoPaciente.setText(paciente.getTelefono());
+                    txtEmailPaciente.setText(paciente.getEmail());
+                    txtFecNacPaciente.setText(paciente.getFechaNacimiento().toString());
+                    JOptionPane.showMessageDialog(miPanel, "Paciente encontrado.");
+                } else {
+                    JOptionPane.showMessageDialog(miPanel, "Paciente no encontrado.");
+                }
             }
         });
     }
