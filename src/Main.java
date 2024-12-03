@@ -12,11 +12,11 @@ public class Main {
         PacientesCRUD crud = new PacientesCRUD(rutaArchivo);
 
         // Crear un nuevo paciente
-        Paciente paciente1 = new Paciente("1", "Juan", "Perez", "1234567890", "juan.perez@example.com", LocalDate.of(1990, 5, 15), "Sin historial");
+        Paciente paciente1 = new Paciente("2", "Juan", "Perez", "1234567890", "juan.perez@example.com", LocalDate.of(1990, 5, 15), "Sin historial");
         crud.agregarPaciente(paciente1);
 
         // Consultar un paciente
-        Paciente encontrado = crud.getInfoPacientePorID("1");
+        Paciente encontrado = crud.getInfoPacientePorID("2");
         if (encontrado != null) {
             System.out.println("Paciente encontrado: " + encontrado.getNombre());
         } else {
@@ -24,17 +24,17 @@ public class Main {
         }
 
         // Actualizar un paciente
-        Paciente datosActualizados = new Paciente("1", "Juan", "Perez", "0987654321", "juan.perez@nuevoemail.com", LocalDate.of(1990, 5, 15), "Historial actualizado");
-        crud.actualizarPaciente("1", datosActualizados);
+        Paciente datosActualizados = new Paciente("2", "Fer", "Morales", "9987654351", "fer.morales@gmail.com", LocalDate.of(1997, 5, 15), "Sin antecedentes médicos");
+        crud.actualizarPaciente("2", datosActualizados);
 
-        // Eliminar un paciente
+       /* // Eliminar un paciente
         crud.eliminarPaciente("1");
 
         // Verificar que se eliminó
         Paciente eliminado = crud.getInfoPacientePorID("1");
         if (eliminado == null) {
             System.out.println("Paciente eliminado correctamente.");
-        }
+        } */
     }
 }
 

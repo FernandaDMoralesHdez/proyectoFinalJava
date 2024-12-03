@@ -82,7 +82,7 @@ public class PacientesCRUD implements Serializable {
         }
     }
 
-    // Método para obtener todos los pacientes
+    // Metodo para obtener todos los pacientes
     public ArrayList<Paciente> getTodosLosPacientes() {
         return listaPacientes;
     }
