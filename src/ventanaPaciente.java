@@ -120,6 +120,8 @@ public class ventanaPaciente extends JFrame{
                 }
             }
         });
+
+        //Botón EDITAR paciente
         btnEditarPaciente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -197,6 +199,7 @@ public class ventanaPaciente extends JFrame{
             }
         });
 
+        //Botón ELIMINAR paciente
         btnEliminarPaciente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
