@@ -241,7 +241,7 @@ public class ventanaPaciente extends JFrame{
     public static void main(String[] args) {
         ventanaPaciente v = new ventanaPaciente();
         v.setContentPane(v.miPanel);
-        v.setSize(500,500);
+        v.setSize(500,400);
         v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         v.setVisible(true);
     }
